@@ -10,7 +10,16 @@
  * governing permissions and limitations under the License.
  */
 
-@import url('//fonts.cdnfonts.com/css/adobe-clean');
+ @font-face {
+  font-family: 'Adobe Clean';
+  src: url("../fonts/AdobeClean-Black.otf") format("opentype");
+}
+
+@font-face {
+  font-family: 'Adobe Clean';
+  font-weight: bold;
+  src: url("../fonts/AdobeClean-Bold.otf") format("opentype");
+}
 
 :root {
   /* colors */
