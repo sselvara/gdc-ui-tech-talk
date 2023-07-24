@@ -1,14 +1,39 @@
 footer {
   padding: 2rem;
-  background-color: var(--overlay-background-color);
+  background-color: var(--background-color);
   font-size: var(--body-font-size-s);
 }
 
 footer .footer {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: auto;
 }
 
 footer .footer p {
   margin: 0;
+}
+
+.nav-tools a {
+  display: flex;
+  align-items: center;
+}
+
+.nav-tools a .icon {
+  padding-right: 10px;
+}
+
+.footer  > div > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer > div > div img {
+  width: 50%;
+  height: auto;
+}
+
+.footer > div > div a {
+ margin-left: 20px;
+ color: black;
 }

@@ -2,8 +2,8 @@
 Your project's description...
 
 ## Environments
-- Preview: https://main--gdc-ui-tech-talk--sselvara.hlx.page/
-- Live: https://main--gdc-ui-tech-talk--sselvara.hlx.live/
+- Preview: https://main--{repo}--{owner}.hlx.page/
+- Live: https://main--{repo}--{owner}.hlx.live/
 
 ## Installation
 

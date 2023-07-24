@@ -1,0 +1,47 @@
+.video-search-content > input {
+  border-bottom: 2px solid var(--text-color);
+  max-width: 100%;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  height: 26px;
+  line-height: 24px;
+  color: #696e79;
+  box-sizing: content-box;
+  padding: 8px 10px 10px;
+  margin: 0;
+  outline: 0;
+  border: 1px solid #f5f5f6;
+  border-radius: 0 4px 4px 0;
+  border-left: 0;
+  background: #f5f5f6;
+}
+
+.video-search-content{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-bottom: 50px;
+  justify-content: flex-end;
+  width: 77%;
+}
+
+.video-search-content > input:hover,.video-search-content > input:focus-visible {
+  border: none;
+  border-radius:0;
+  border-bottom: 1px solid var(--text-color);
+  outline: none;
+}
+
+.icon-search-class {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  text-align: center;
+  padding: 10px;
+  background: #f5f5f6;
+  border: 1px solid #f5f5f6;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}

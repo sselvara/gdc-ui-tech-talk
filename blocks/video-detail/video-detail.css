@@ -1,0 +1,8 @@
+.video-details-content p {
+  display: flex;
+  align-items: center;
+}
+
+.video-details-content p .icon {
+  padding-right: 5px;
+}

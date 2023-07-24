@@ -104,9 +104,20 @@ function loadDelayed() {
 }
 
 async function loadPage() {
+  // await fetchUser();
+  // console.log("loadPage call.............")
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+}
+
+async function fetchUser() {
+  const resp = await fetch('https://admin.hlx.page/profile');
+  const userData = await resp.json();
+console.log(userData.status,"..userData");
+  if(userData.status !== 200){
+    window.location.replace('https://admin.hlx.page/login/sselvara/gdc-ui-tech-talk/main');
+  }
 }
 
 loadPage();
