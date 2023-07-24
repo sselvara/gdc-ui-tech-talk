@@ -7,7 +7,11 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
     const imgTag = document.createElement('img');
     imgTag.src = 'https://iltpp.org/wp-content/uploads/2019/09/Adobe-Banner-1.png';
     const wrapper = document.createElement('a');
-    wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
+    if (video.Videos) {
+      wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
+    } else {
+      wrapper.href = '#';
+    }
     const imageDiv = document.createElement('div');
     const bodyDiv = document.createElement('div');
     const videoTitle = document.createElement('h6');
