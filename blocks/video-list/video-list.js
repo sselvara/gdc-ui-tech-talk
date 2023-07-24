@@ -82,7 +82,6 @@ export default async function decorate(block) {
   const resp = await fetch('/ui-tech-talk-tracker.json');
   const json = await resp.json();
   let listData = json?.data;
-  console.log(defaultImage, listType);
   if (listType !== 'ALL') {
     listData = listData.filter((obj) => obj?.Status?.trim().toLowerCase() !== listType.trim().toLowerCase());
   }
@@ -110,10 +109,8 @@ export default async function decorate(block) {
   setTimeout(() => {
     const selectedTags = [];
     const applyFilterCheckbox = document.getElementsByClassName('apply-filter-checkbox');
-    console.log(applyFilterCheckbox, '..applyFilterCheckbox');
     for (let i = 0; i < applyFilterCheckbox.length; i++) {
       applyFilterCheckbox[i].addEventListener('change', () => {
-        console.log('applyFilterCheckbox', applyFilterCheckbox[i].checked ? 'true' : 'false', applyFilterCheckbox[i].value);
         if (applyFilterCheckbox[i].checked) {
           selectedTags.push(applyFilterCheckbox[i].value);
         } else {
