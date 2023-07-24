@@ -238,7 +238,7 @@ main {
 }
 
 main .section {
-  padding: 64px 16px;
+  padding: 20px 16px;
   background-color: #FAFBFC;
 }
 
@@ -288,6 +288,9 @@ main .section.highlight {
   padding: 20px 32px 0;
 }
 
-.section.video-search-container{
-  padding-top: 20px;
+/* media query for tablet */
+@media (min-width: 900px) {
+  .section.video-search-container{
+    padding-top: 20px;
+  }
 }
