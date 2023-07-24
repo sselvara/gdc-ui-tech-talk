@@ -6,3 +6,7 @@
 .video-details-content p .icon {
   padding-right: 5px;
 }
+
+.video-details iframe {
+  background-color: lightgray;
+}
