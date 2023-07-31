@@ -13,12 +13,14 @@
  @font-face {
   font-family: 'Adobe Clean';
   src: url("../fonts/AdobeClean-Black.otf") format("opentype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Adobe Clean';
   font-weight: bold;
   src: url("../fonts/AdobeClean-Bold.otf") format("opentype");
+  font-display: swap;
 }
 
 :root {
@@ -29,6 +31,9 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
   --text-color: #000;
+  --red-color:#ED1C24;
+  --white-color: #fff;
+  --light-gray: #FAFBFC;
 
   /* fonts */
   --body-font-family: 'Adobe Clean', sans-serif;
@@ -50,6 +55,11 @@
 
   /* nav height */
   --nav-height: 64px;
+
+  /* media breakpoints */
+  --mobile: 480px;
+  --tablet: 786px;
+  --desktop: 1024px;
 
 }
 
@@ -164,7 +174,7 @@ a.button:any-link, button {
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
-  background-color: var(--link-hover-color);
+  background-color: white;
   cursor: pointer;
 }
 
@@ -232,14 +242,14 @@ main img {
 }
 
 main {
-  background-color: #FAFBFC;
+  background-color: var(--light-gray);
   min-height: 800px;
   padding-bottom: 40px;
 }
 
 main .section {
   padding: 20px 16px;
-  background-color: #FAFBFC;
+  background-color: var(--light-gray);
 }
 
 @media (min-width: 600px) {
@@ -264,13 +274,14 @@ main .section.highlight {
   position: relative;
   display: inline-block;
   border-radius: 6px;
-  background: #ED1C24;
+  background: var(--red-color);
   padding: 3px 10px;
   margin: 0 8px;
   font-weight: 600;
-  font-size: 14px;
-  color: #fff;
+  font-size: var(--body-font-size-xs);
+  color: var(--white-color);
   transition: clip-path 500ms;
+  margin-bottom: 10px;
 }
 
 .labelwithborder-wrapper .labelwithborder h1::after,

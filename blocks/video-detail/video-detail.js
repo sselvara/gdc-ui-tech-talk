@@ -10,7 +10,7 @@ const findSelectedVideo = (data) => {
 };
 
 export default async function decorate(block) {
-  const resp = await fetch('/ui-tech-talk-tracker.json');
+  const resp = await fetch('/tech-talk-tracker.json?sheet=incoming');
   const json = await resp.json();
   const selectedVideo = findSelectedVideo(json.data);
   const divWrap = document.createElement('div');
@@ -38,7 +38,7 @@ export default async function decorate(block) {
   divContent.append(videoTags);
 
   divWrap.className = 'video-details';
-  divWrap.innerHTML = getVideo(selectedVideo.Videos, selectedVideo.Topic);
+  divWrap.innerHTML = getVideo(selectedVideo.video, selectedVideo.Topic);
   divWrap.append(divContent);
 
   block.textContent = '';
