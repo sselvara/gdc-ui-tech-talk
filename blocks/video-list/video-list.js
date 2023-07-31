@@ -194,7 +194,7 @@ export default async function decorate(block) {
       applyFilter(selectedTags, selectedFilter);
     });
 
-    for (let i = 0; i < applyFilterCheckbox.length; i++) {
+    for (let i = 0; i < applyFilterCheckbox.length; i += 1) {
       // eslint-disable-next-line no-loop-func
       applyFilterCheckbox[i].addEventListener('change', () => {
         if (applyFilterCheckbox[i].checked) {

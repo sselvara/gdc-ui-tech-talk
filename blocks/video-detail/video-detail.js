@@ -6,7 +6,7 @@ const getVideo = (videoUrl, title) => `<iframe src="${videoUrl}" width="100%" he
 const findSelectedVideo = (data) => {
   const urlParams = new URLSearchParams(window.location.search);
   const selectedVideo = urlParams.get('selectedVideo');
-  return data.find((obj) => obj['S. no'] == selectedVideo);
+  return data.find((obj) => Number(obj['S. no']) === Number(selectedVideo));
 };
 
 export default async function decorate(block) {

@@ -59,11 +59,6 @@
   display: none;
 }
 
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark::after {
-  display: block;
-}
-
 /* Style the checkmark/indicator */
 .container .checkmark::after {
   left: 6px;
@@ -73,6 +68,11 @@
   border: solid white;
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark::after {
+  display: block;
 }
 
 .custom-select > select {
