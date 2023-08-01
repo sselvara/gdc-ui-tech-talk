@@ -69,6 +69,8 @@ export default async function decorate(block) {
   // Mobile filter
   const filterButton = document.createElement('button');
   filterButton.className = 'filter-close-button';
+  filterButton['aria-label'] = 'Hide filter';
+  filterButton.setAttribute('aria-label', 'Hide filter');
   const filterIcon = document.createElement('span');
   filterIcon.className = 'icon icon-close';
   filterButton.append(filterIcon);

@@ -1,7 +1,7 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { excelDateToJSDate } from '../../scripts/helper.js';
 
-const perPageRecord = 5;
+const perPageRecord = 10;
 let loadedRecord = perPageRecord;
 
 const createVideoCard = (data, videoDataEle = null, ul = null) => {
@@ -11,6 +11,7 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
     imgTag.src = 'https://main--gdc-ui-tech-talk--sselvara.hlx.live/images/video-screen.jpg';
     imgTag.width = '640';
     imgTag.height = '360';
+    imgTag.alt = video.Topic;
     const wrapper = document.createElement('a');
     if (video.video) {
       wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
@@ -20,9 +21,10 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
     }
     const imageDiv = document.createElement('div');
     const bodyDiv = document.createElement('div');
-    const videoTitle = document.createElement('h6');
+    const videoTitle = document.createElement('p');
     const videoAuthor = document.createElement('p');
     videoAuthor.innerHTML = `<span class="icon icon-presenter"></span> ${video.Presenter}`;
+    videoTitle.className = 'h6';
     videoTitle.innerHTML = video.Topic;
     const videoDate = document.createElement('p');
     videoDate.innerHTML = `<span class="icon icon-calendar"></span> ${excelDateToJSDate(video['Talk Date'])}`;
@@ -53,10 +55,11 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
 };
 
 const loadVideoUi = (data, isAppend = false) => {
-  console.log(data, '...data');
   if (isAppend) {
+    const listDataLimit = data.slice(loadedRecord, perPageRecord + loadedRecord);
+    loadedRecord = perPageRecord + loadedRecord;
     const videoDataEle = document.getElementById('video-list-data');
-    createVideoCard(data, videoDataEle);
+    createVideoCard(listDataLimit, videoDataEle);
   } else {
     const videoDataEle = document.getElementById('video-list-data');
     videoDataEle.innerHTML = '';
@@ -102,7 +105,6 @@ export default async function decorate(block) {
     listData = listData
       .filter((obj) => obj?.Status?.trim().toLowerCase() === 'completed');
   }
-
   const ul = document.createElement('ul');
   ul.id = 'video-list-data';
   ul.setAttribute('data-video-list', JSON.stringify(listData));
@@ -110,6 +112,7 @@ export default async function decorate(block) {
   // Mobile filter
   const filterButton = document.createElement('button');
   filterButton.className = 'filter-button';
+  filterButton['aria-label'] = 'Show filter';
   filterButton.setAttribute('value', 'NO');
   const filterIcon = document.createElement('span');
   filterIcon.className = 'icon icon-filter';
@@ -129,7 +132,7 @@ export default async function decorate(block) {
 
   listData = [...withoutDate, ...withDate];
 
-  decorateIcons(createVideoCard(listData.splice(0, perPageRecord), null, ul));
+  decorateIcons(createVideoCard(listData.slice(0, perPageRecord), null, ul));
   block.textContent = '';
   block.append(ul);
   block.appendChild(filterButton);
@@ -156,7 +159,11 @@ export default async function decorate(block) {
       searchData = JSON.parse(searchData);
       const filterData = searchData
         .filter(({ Topic }) => Topic.toLowerCase().indexOf(searchInput.value.toLowerCase()) > -1);
-      loadVideoUi(filterData);
+      if (filterData.length === 0) {
+        videoDataEle.innerHTML = '<h4>Tech Talk Session Not Found.</h4>';
+      } else {
+        loadVideoUi(filterData);
+      }
     }, 1000)();
   });
 
@@ -189,7 +196,7 @@ export default async function decorate(block) {
       });
     }
 
-    loadVideoUi(filterData.slice(0, 5));
+    loadVideoUi(filterData.slice(0, perPageRecord));
   };
 
   setTimeout(() => {
@@ -219,9 +226,7 @@ export default async function decorate(block) {
 
   window.onscroll = function () {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-      const listDataLimit = listData.slice(loadedRecord, perPageRecord + loadedRecord);
-      loadedRecord = perPageRecord + loadedRecord;
-      throttle(loadVideoUi, 1000)(listDataLimit, true);
+      throttle(loadVideoUi, 1000)(listData, true);
     }
   };
 }
