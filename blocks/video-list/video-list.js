@@ -82,7 +82,7 @@ const getListType = (block) => {
 
 export default async function decorate(block) {
   const { listType = '' } = getListType(block);
-  const resp = await fetch('/tech-talk-tracker.json?sheet=incoming&limit=10');
+  const resp = await fetch('/tech-talk-tracker.json?sheet=incoming');
   const json = await resp.json();
   let listData = json?.data;
   if (listType !== 'ALL') {
