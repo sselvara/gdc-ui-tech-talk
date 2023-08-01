@@ -91,16 +91,10 @@ const getListType = (block) => {
 
 export default async function decorate(block) {
   const { listType = '' } = getListType(block);
-<<<<<<< Updated upstream
-  const resp = await fetch('/tech-talk-tracker.json?sheet=incoming');
-  const json = await resp.json();
-  let listData = json?.data;
-=======
   // const resp = await fetch('/tech-talk-tracker.json?sheet=incoming&limit=10');
   // const json = await resp.json();
   // let listData = json?.data;
   let listData = JSON.parse(document.body.getAttribute('pageLoadData'));
->>>>>>> Stashed changes
   if (listType !== 'ALL') {
     listData = listData
       .filter((obj) => obj?.Status?.trim().toLowerCase() !== listType.trim().toLowerCase());
