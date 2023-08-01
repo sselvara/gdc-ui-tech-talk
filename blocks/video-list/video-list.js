@@ -5,7 +5,7 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
   data.forEach((video) => {
     const li = document.createElement('li');
     const imgTag = document.createElement('img');
-    imgTag.src = 'https://main--gdc-ui-tech-talk--sselvara.hlx.live/images/video-screen-1.png';
+    imgTag.src = 'https://main--gdc-ui-tech-talk--sselvara.hlx.live/images/video-screen.jpg';
     imgTag.width = '640';
     imgTag.height = '360';
     const wrapper = document.createElement('a');
