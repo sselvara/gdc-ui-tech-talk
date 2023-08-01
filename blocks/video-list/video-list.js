@@ -1,6 +1,9 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { excelDateToJSDate } from '../../scripts/helper.js';
 
+const perPageRecord = 5;
+let loadedRecord = perPageRecord;
+
 const createVideoCard = (data, videoDataEle = null, ul = null) => {
   data.forEach((video) => {
     const li = document.createElement('li');
@@ -49,10 +52,16 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
   return ul;
 };
 
-const loadVideoUi = (data) => {
-  const videoDataEle = document.getElementById('video-list-data');
-  videoDataEle.innerHTML = '';
-  createVideoCard(data, videoDataEle);
+const loadVideoUi = (data, isAppend = false) => {
+  console.log(data, '...data');
+  if (isAppend) {
+    const videoDataEle = document.getElementById('video-list-data');
+    createVideoCard(data, videoDataEle);
+  } else {
+    const videoDataEle = document.getElementById('video-list-data');
+    videoDataEle.innerHTML = '';
+    createVideoCard(data, videoDataEle);
+  }
 };
 
 function throttle(cb, delay) {
@@ -82,9 +91,16 @@ const getListType = (block) => {
 
 export default async function decorate(block) {
   const { listType = '' } = getListType(block);
+<<<<<<< Updated upstream
   const resp = await fetch('/tech-talk-tracker.json?sheet=incoming');
   const json = await resp.json();
   let listData = json?.data;
+=======
+  // const resp = await fetch('/tech-talk-tracker.json?sheet=incoming&limit=10');
+  // const json = await resp.json();
+  // let listData = json?.data;
+  let listData = JSON.parse(document.body.getAttribute('pageLoadData'));
+>>>>>>> Stashed changes
   if (listType !== 'ALL') {
     listData = listData
       .filter((obj) => obj?.Status?.trim().toLowerCase() !== listType.trim().toLowerCase());
@@ -119,7 +135,7 @@ export default async function decorate(block) {
 
   listData = [...withoutDate, ...withDate];
 
-  decorateIcons(createVideoCard(listData, null, ul));
+  decorateIcons(createVideoCard(listData.splice(0, perPageRecord), null, ul));
   block.textContent = '';
   block.append(ul);
   block.appendChild(filterButton);
@@ -179,7 +195,7 @@ export default async function decorate(block) {
       });
     }
 
-    loadVideoUi(filterData);
+    loadVideoUi(filterData.slice(0, 5));
   };
 
   setTimeout(() => {
@@ -206,4 +222,12 @@ export default async function decorate(block) {
       });
     }
   }, 500);
+
+  window.onscroll = function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      const listDataLimit = listData.slice(loadedRecord, perPageRecord + loadedRecord);
+      loadedRecord = perPageRecord + loadedRecord;
+      throttle(loadVideoUi, 1000)(listDataLimit, true);
+    }
+  };
 }

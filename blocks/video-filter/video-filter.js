@@ -48,6 +48,7 @@ export default async function decorate(block) {
   const resp = await fetch('/tech-talk-tracker.json?sheet=incoming');
   const json = await resp.json();
   let listData = json?.data;
+  document.body.setAttribute('pageLoadData', JSON.stringify(listData));
   if (window.location.pathname !== '/upcoming-sessions') {
     listData = listData.filter(({ Status }) => Status.toLowerCase() === 'completed');
   } else {
