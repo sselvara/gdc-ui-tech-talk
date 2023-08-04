@@ -109,13 +109,4 @@ async function loadPage() {
   loadDelayed();
 }
 
-// async function fetchUser() {
-//   const resp = await fetch('https://admin.hlx.page/profile');
-//   const userData = await resp.json();
-// console.log(userData.status,"..userData");
-//   if(userData.status !== 200){
-//     window.location.replace('https://admin.hlx.page/login/sselvara/gdc-ui-tech-talk/main');
-//   }
-// }
-
 loadPage();

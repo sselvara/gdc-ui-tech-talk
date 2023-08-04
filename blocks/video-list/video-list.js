@@ -13,12 +13,13 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
     imgTag.height = '360';
     imgTag.alt = video.Topic;
     const wrapper = document.createElement('a');
-    if (video.video) {
-      wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
-    } else {
-      wrapper.href = '#';
-      wrapper.className = 'no-cursor';
-    }
+    // if (video.video) {
+    //   wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
+    // } else {
+    //   wrapper.href = '#';
+    //   wrapper.className = 'no-cursor';
+    // }
+    wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
     const imageDiv = document.createElement('div');
     const bodyDiv = document.createElement('div');
     const videoTitle = document.createElement('p');

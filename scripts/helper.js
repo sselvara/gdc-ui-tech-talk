@@ -29,6 +29,12 @@ export function excelDateToJSDate(serial) {
   });
 }
 
-export function name() {
-  return 'name';
+export async function fetchUser() {
+  const resp = await fetch('https://admin.hlx.page/login/sselvara/gdc-ui-tech-talk');
+  const userData = await resp.json();
+  console.log(userData,"...userData")
+  if (userData.status === 200) {
+    return userData.data;
+  }
+  return false;
 }
