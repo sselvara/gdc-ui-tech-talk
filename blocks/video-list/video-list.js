@@ -1,8 +1,6 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { excelDateToJSDate } from '../../scripts/helper.js';
 
-<<<<<<< Updated upstream
-=======
 const perPageRecord = 10;
 let loadedRecord = perPageRecord;
 
@@ -24,7 +22,6 @@ const getSvgText = ([mainTag = '']) => {
 </svg> `;
 };
 
->>>>>>> Stashed changes
 const createVideoCard = (data, videoDataEle = null, ul = null) => {
   let classCounter = 1;
   data.forEach((video) => {
@@ -34,16 +31,13 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
     imgTag.width = '640';
     imgTag.height = '360';
     const wrapper = document.createElement('a');
-<<<<<<< Updated upstream
     if (video.video) {
       wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
     } else {
       wrapper.href = '#';
       wrapper.className = 'no-cursor';
     }
-=======
     wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
->>>>>>> Stashed changes
     const imageDiv = document.createElement('div');
     const bodyDiv = document.createElement('div');
     const videoTitle = document.createElement('h6');

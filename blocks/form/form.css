@@ -43,7 +43,7 @@ main .form label {
   font-size: var(--type-body-s-size);
   line-height: var(--type-body-s-lh);
   padding-bottom: var(--spacing-xs);
-  text-transform: uppercase;
+  text-transform: none;
   box-sizing: border-box;
   font-weight: 500;
 }
