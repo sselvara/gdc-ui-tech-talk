@@ -1,7 +1,32 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { excelDateToJSDate } from '../../scripts/helper.js';
 
+<<<<<<< Updated upstream
+=======
+const perPageRecord = 10;
+let loadedRecord = perPageRecord;
+
+const getSvgText = ([mainTag = '']) => {
+  let svgText = '';
+  if (mainTag.length > 11) {
+    const wrapText = mainTag.split(' ');
+    svgText = wrapText.map((text, index) => `<text x="50%" y="${50 * index}%" dy="${(0.35 * index) + 0.40}em" text-anchor="middle">
+    ${text}
+    </text>`);
+    svgText = svgText.join();
+  } else {
+    svgText = `<text x="50%" y="50%" dy=".35em" text-anchor="middle">
+    ${mainTag}
+    </text>`;
+  }
+  return `<svg viewBox="0 0 1320 300" height="100%">
+  ${svgText}
+</svg> `;
+};
+
+>>>>>>> Stashed changes
 const createVideoCard = (data, videoDataEle = null, ul = null) => {
+  let classCounter = 1;
   data.forEach((video) => {
     const li = document.createElement('li');
     const imgTag = document.createElement('img');
@@ -9,12 +34,16 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
     imgTag.width = '640';
     imgTag.height = '360';
     const wrapper = document.createElement('a');
+<<<<<<< Updated upstream
     if (video.video) {
       wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
     } else {
       wrapper.href = '#';
       wrapper.className = 'no-cursor';
     }
+=======
+    wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
+>>>>>>> Stashed changes
     const imageDiv = document.createElement('div');
     const bodyDiv = document.createElement('div');
     const videoTitle = document.createElement('h6');
@@ -29,9 +58,16 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
       tagsHtml += `<span class="video-tags tag">${tag}</span>`;
     });
     videoTags.innerHTML = tagsHtml;
-    imageDiv.className = 'video-list-card-image';
+    if (classCounter === 10) {
+      classCounter = 1;
+    }
+    imageDiv.className = `video-list-card-image video-list-card${classCounter}`;
+    classCounter += 1;
     bodyDiv.className = 'video-list-card-body';
-    imageDiv.append(imgTag);
+    const span2 = document.createElement('div');
+    span2.innerHTML = getSvgText(video.Tags?.split(','));
+    span2.className = 'svg-video-list';
+    imageDiv.append(span2);
     bodyDiv.append(videoTitle);
     bodyDiv.append(videoAuthor);
     bodyDiv.append(videoDate);

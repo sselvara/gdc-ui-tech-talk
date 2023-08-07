@@ -10,7 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
- @font-face {
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400,800&display=swap');
+
+@font-face {
   font-family: 'Adobe Clean';
   src: url("../fonts/AdobeClean-Black.otf") format("opentype");
   font-display: swap;
@@ -36,9 +38,9 @@
   --light-gray: #FAFBFC;
 
   /* fonts */
-  --body-font-family: 'Adobe Clean', sans-serif;
+  --body-font-family: 'Poppins', sans-serif;
   --heading-font-family: var(--body-font-family);
-  --fixed-font-family: 'Adobe Clean', sans-serif;
+  --fixed-font-family: 'Poppins', sans-serif;
 
   /* body sizes */
   --body-font-size-m: 18px;
@@ -95,7 +97,7 @@ header {
 h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.25;
   margin-top: 1em;
   margin-bottom: .5em;
@@ -190,7 +192,7 @@ a.button.secondary, button.secondary {
 }
 
 main input {
-  font-size: 1.25rem;
+  font-size: 16px;
   width: 100%;
   max-width: 50rem;
   display: block;
@@ -273,15 +275,15 @@ main .section.highlight {
 .tag {
   position: relative;
   display: inline-block;
-  border-radius: 6px;
-  background: var(--red-color);
+  border-radius: 1px;
   padding: 3px 10px;
   margin: 0 8px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--body-font-size-xs);
   color: var(--white-color);
   transition: clip-path 500ms;
   margin-bottom: 10px;
+  background-image: linear-gradient( 94.3deg,  rgb(26 33 64 / 100%) 10.9%, rgb(81 84 115 / 100%) 87.1% );
 }
 
 .labelwithborder-wrapper .labelwithborder h1::after,
@@ -295,6 +297,14 @@ main .section.highlight {
   border-bottom: 2px solid black;
 }
 
+.form-container .labelwithborder-wrapper .labelwithborder h4::after {
+  border-bottom:none;
+}
+
+.form-container .labelwithborder-wrapper .labelwithborder h4{
+  text-align: center;
+}
+
 .section.labelwithborder-container{
   padding: 20px 32px 0;
 }
@@ -304,4 +314,17 @@ main .section.highlight {
   .section.video-search-container{
     padding-top: 20px;
   }
+}
+
+main:has(.form-container) {
+  display: flex;
+  background: #ADA996;  /* fallback for old browsers */
+  background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.section.labelwithborder-container.form-container{
+  padding: 0;
+  border-radius: 5px;
+  margin-top: 80px;
 }
