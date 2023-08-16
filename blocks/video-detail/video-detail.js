@@ -1,7 +1,12 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { excelDateToJSDate } from '../../scripts/helper.js';
 
-const getVideo = (videoUrl, title) => `<iframe src="${videoUrl}" width="100%" height="500" frameborder="0" scrolling="no" allowfullscreen title="${title}"></iframe>`;
+const getVideo = (videoUrl, title) => {
+  if (videoUrl) {
+    return `<iframe src="${videoUrl}" width="100%" height="500" frameborder="0" scrolling="no" allowfullscreen title="${title}"></iframe>`;
+  }
+  return '<div class="video-not-available"><div class="typewriter"><h3>Video will be available once the session is complete.</h3></div></div>';
+};
 
 const findSelectedVideo = (data) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -32,10 +37,15 @@ export default async function decorate(block) {
   });
   videoTags.innerHTML = tagsHtml;
 
+  const videoDescription = document.createElement('p');
+  videoDescription.className = 'video-description';
+  videoDescription.innerHTML = selectedVideo.Description;
+
   divContent.append(h6);
   divContent.append(date);
   divContent.append(author);
   divContent.append(videoTags);
+  divContent.append(videoDescription);
 
   divWrap.className = 'video-details';
   divWrap.innerHTML = getVideo(selectedVideo.video, selectedVideo.Topic);

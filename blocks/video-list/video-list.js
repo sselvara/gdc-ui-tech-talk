@@ -1,7 +1,7 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { excelDateToJSDate } from '../../scripts/helper.js';
+import { excelDateToJSDate, isMobile } from '../../scripts/helper.js';
 
-const perPageRecord = 10;
+const perPageRecord = isMobile() ? 4 : 10;
 let loadedRecord = perPageRecord;
 
 const getSvgText = ([mainTag = '']) => {
@@ -26,25 +26,18 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
   let classCounter = 1;
   data.forEach((video) => {
     const li = document.createElement('li');
-    const imgTag = document.createElement('img');
-    imgTag.src = 'https://iltpp.org/wp-content/uploads/2019/09/Adobe-Banner-1.png';
-    imgTag.width = '640';
-    imgTag.height = '360';
     const wrapper = document.createElement('a');
-    if (video.video) {
-      wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
-    } else {
-      wrapper.href = '#';
-      wrapper.className = 'no-cursor';
-    }
     wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
     const imageDiv = document.createElement('div');
     const bodyDiv = document.createElement('div');
-    const videoTitle = document.createElement('h6');
+    const videoTitle = document.createElement('p');
     const videoAuthor = document.createElement('p');
+    videoAuthor.className = 'size15';
     videoAuthor.innerHTML = `<span class="icon icon-presenter"></span> ${video.Presenter}`;
+    videoTitle.className = 'size18';
     videoTitle.innerHTML = video.Topic;
     const videoDate = document.createElement('p');
+    videoDate.className = 'size14';
     videoDate.innerHTML = `<span class="icon icon-calendar"></span> ${excelDateToJSDate(video['Talk Date'])}`;
     const videoTags = document.createElement('span');
     let tagsHtml = '';
@@ -79,10 +72,17 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
   return ul;
 };
 
-const loadVideoUi = (data) => {
-  const videoDataEle = document.getElementById('video-list-data');
-  videoDataEle.innerHTML = '';
-  createVideoCard(data, videoDataEle);
+const loadVideoUi = (data, isAppend = false) => {
+  if (isAppend) {
+    const listDataLimit = data.slice(loadedRecord, perPageRecord + loadedRecord);
+    loadedRecord = perPageRecord + loadedRecord;
+    const videoDataEle = document.getElementById('video-list-data');
+    createVideoCard(listDataLimit, videoDataEle);
+  } else {
+    const videoDataEle = document.getElementById('video-list-data');
+    videoDataEle.innerHTML = '';
+    createVideoCard(data, videoDataEle);
+  }
 };
 
 function throttle(cb, delay) {
@@ -112,9 +112,10 @@ const getListType = (block) => {
 
 export default async function decorate(block) {
   const { listType = '' } = getListType(block);
-  const resp = await fetch('/tech-talk-tracker.json?sheet=incoming');
-  const json = await resp.json();
-  let listData = json?.data;
+  // const resp = await fetch('/tech-talk-tracker.json?sheet=incoming&limit=10');
+  // const json = await resp.json();
+  // let listData = json?.data;
+  let listData = JSON.parse(document.body.getAttribute('pageLoadData'));
   if (listType !== 'ALL') {
     listData = listData
       .filter((obj) => obj?.Status?.trim().toLowerCase() !== listType.trim().toLowerCase());
@@ -122,7 +123,6 @@ export default async function decorate(block) {
     listData = listData
       .filter((obj) => obj?.Status?.trim().toLowerCase() === 'completed');
   }
-
   const ul = document.createElement('ul');
   ul.id = 'video-list-data';
   ul.setAttribute('data-video-list', JSON.stringify(listData));
@@ -130,6 +130,7 @@ export default async function decorate(block) {
   // Mobile filter
   const filterButton = document.createElement('button');
   filterButton.className = 'filter-button';
+  filterButton['aria-label'] = 'Show filter';
   filterButton.setAttribute('value', 'NO');
   const filterIcon = document.createElement('span');
   filterIcon.className = 'icon icon-filter';
@@ -149,7 +150,7 @@ export default async function decorate(block) {
 
   listData = [...withoutDate, ...withDate];
 
-  decorateIcons(createVideoCard(listData, null, ul));
+  decorateIcons(createVideoCard(listData.slice(0, perPageRecord), null, ul));
   block.textContent = '';
   block.append(ul);
   block.appendChild(filterButton);
@@ -176,7 +177,11 @@ export default async function decorate(block) {
       searchData = JSON.parse(searchData);
       const filterData = searchData
         .filter(({ Topic }) => Topic.toLowerCase().indexOf(searchInput.value.toLowerCase()) > -1);
-      loadVideoUi(filterData);
+      if (filterData.length === 0) {
+        videoDataEle.innerHTML = '<h4>Tech Talk Session Not Found.</h4>';
+      } else {
+        loadVideoUi(filterData);
+      }
     }, 1000)();
   });
 
@@ -209,7 +214,7 @@ export default async function decorate(block) {
       });
     }
 
-    loadVideoUi(filterData);
+    loadVideoUi(filterData.slice(0, perPageRecord));
   };
 
   setTimeout(() => {
@@ -236,4 +241,10 @@ export default async function decorate(block) {
       });
     }
   }, 500);
+
+  window.onscroll = function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      throttle(loadVideoUi, 1000)(listData, true);
+    }
+  };
 }

@@ -99,7 +99,7 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  window.setTimeout(() => import('./delayed.js'), 0);
   // load anything that can be postponed to the latest here
 }
 
@@ -108,14 +108,5 @@ async function loadPage() {
   await loadLazy(document);
   loadDelayed();
 }
-
-// async function fetchUser() {
-//   const resp = await fetch('https://admin.hlx.page/profile');
-//   const userData = await resp.json();
-// console.log(userData.status,"..userData");
-//   if(userData.status !== 200){
-//     window.location.replace('https://admin.hlx.page/login/sselvara/gdc-ui-tech-talk/main');
-//   }
-// }
 
 loadPage();

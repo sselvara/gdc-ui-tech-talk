@@ -48,6 +48,7 @@ export default async function decorate(block) {
   const resp = await fetch('/tech-talk-tracker.json?sheet=incoming');
   const json = await resp.json();
   let listData = json?.data;
+  document.body.setAttribute('pageLoadData', JSON.stringify(listData));
   if (window.location.pathname !== '/upcoming-sessions') {
     listData = listData.filter(({ Status }) => Status.toLowerCase() === 'completed');
   } else {
@@ -68,6 +69,8 @@ export default async function decorate(block) {
   // Mobile filter
   const filterButton = document.createElement('button');
   filterButton.className = 'filter-close-button';
+  filterButton['aria-label'] = 'Hide filter';
+  filterButton.setAttribute('aria-label', 'Hide filter');
   const filterIcon = document.createElement('span');
   filterIcon.className = 'icon icon-close';
   filterButton.append(filterIcon);

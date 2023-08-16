@@ -1,8 +1,4 @@
 /* block specific CSS goes here */
-
-main .hero-container > div {
-  max-width: unset;
-}
   
 main .hero-container {
   padding: 0;
@@ -10,7 +6,7 @@ main .hero-container {
   
 main .hero {
   position: relative;
-  padding: 32px;
+  padding-top: 32px;
   min-height: 300px;
 }
 
@@ -22,7 +18,6 @@ main .hero h1 {
 }
 
 main .hero picture {
-  position: absolute;
   z-index: -1;
   top: 0;
   left: 0;
@@ -35,5 +30,13 @@ main .hero picture {
 main .hero img {
   object-fit: cover;
   width: 100%;
-  height: 100%;
+  min-height: 700px;
+}
+
+.hero h2 {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  margin: 50px;
+  color: white;
 }

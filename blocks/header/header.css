@@ -275,3 +275,11 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+.nav-sections > ul > .active a::after{
+    display: block;
+    width: 100%;
+    padding-top: 8px;
+    content: "";
+    border-bottom: 2px solid black;
+}
