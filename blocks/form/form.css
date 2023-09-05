@@ -6,7 +6,7 @@ main .form {
 
 main .form h2 {
   padding: var(--spacing-m) 0;
-  font-size: var(--type-heading-l-lh);
+  font-size: 16px;
   font-weight: normal;
 }
 
@@ -14,7 +14,6 @@ main .form h3 {
   padding-top: var(--spacing-m);
   font-size: var(--type-heading-m-size);
   font-weight: bold;
-  text-transform: uppercase;
 }
 
 main .form input,
@@ -22,11 +21,11 @@ main .form textarea,
 main .form select {
   border: 1px solid rgb(193 193 195);
   padding: 11px;
-  border-radius: 0;
   width: 100%;
   max-width: 50rem;
   box-sizing: border-box;
   margin-top: 4px;
+  border-radius: 5px
 }
 
 main .form textarea {
@@ -44,9 +43,9 @@ main .form label {
   font-size: var(--type-body-s-size);
   line-height: var(--type-body-s-lh);
   padding-bottom: var(--spacing-xs);
-  text-transform: uppercase;
+  text-transform: none;
   box-sizing: border-box;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 main .form label.required::after {
@@ -126,4 +125,12 @@ main .form .form-submit-wrapper {
   .labelwithborder-container.form-container {
     width: 50%;
   }
+}
+
+.form.block{
+  border-radius: 0 0 5px 5px;
+}
+
+input::placeholder{
+  font-size: 14px;
 }

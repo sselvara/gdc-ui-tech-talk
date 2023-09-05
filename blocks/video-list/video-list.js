@@ -1,33 +1,43 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { excelDateToJSDate } from '../../scripts/helper.js';
+import { excelDateToJSDate, isMobile } from '../../scripts/helper.js';
 
-const perPageRecord = 10;
+const perPageRecord = isMobile() ? 4 : 10;
 let loadedRecord = perPageRecord;
 
+const getSvgText = ([mainTag = '']) => {
+  let svgText = '';
+  if (mainTag.length > 11) {
+    const wrapText = mainTag.split(' ');
+    svgText = wrapText.map((text, index) => `<text x="50%" y="${50 * index}%" dy="${(0.35 * index) + 0.40}em" text-anchor="middle">
+    ${text}
+    </text>`);
+    svgText = svgText.join();
+  } else {
+    svgText = `<text x="50%" y="50%" dy=".35em" text-anchor="middle">
+    ${mainTag}
+    </text>`;
+  }
+  return `<svg viewBox="0 0 1320 300" height="100%">
+  ${svgText}
+</svg> `;
+};
+
 const createVideoCard = (data, videoDataEle = null, ul = null) => {
+  let classCounter = 1;
   data.forEach((video) => {
     const li = document.createElement('li');
-    const imgTag = document.createElement('img');
-    imgTag.src = 'https://main--gdc-ui-tech-talk--sselvara.hlx.live/images/video-screen.jpg';
-    imgTag.width = '640';
-    imgTag.height = '360';
-    imgTag.alt = video.Topic;
     const wrapper = document.createElement('a');
-    // if (video.video) {
-    //   wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
-    // } else {
-    //   wrapper.href = '#';
-    //   wrapper.className = 'no-cursor';
-    // }
     wrapper.href = `/topic-details?selectedVideo=${video['S. no']}`;
     const imageDiv = document.createElement('div');
     const bodyDiv = document.createElement('div');
     const videoTitle = document.createElement('p');
     const videoAuthor = document.createElement('p');
+    videoAuthor.className = 'size15';
     videoAuthor.innerHTML = `<span class="icon icon-presenter"></span> ${video.Presenter}`;
-    videoTitle.className = 'h6';
+    videoTitle.className = 'size18';
     videoTitle.innerHTML = video.Topic;
     const videoDate = document.createElement('p');
+    videoDate.className = 'size14';
     videoDate.innerHTML = `<span class="icon icon-calendar"></span> ${excelDateToJSDate(video['Talk Date'])}`;
     const videoTags = document.createElement('span');
     let tagsHtml = '';
@@ -35,9 +45,16 @@ const createVideoCard = (data, videoDataEle = null, ul = null) => {
       tagsHtml += `<span class="video-tags tag">${tag}</span>`;
     });
     videoTags.innerHTML = tagsHtml;
-    imageDiv.className = 'video-list-card-image';
+    if (classCounter === 10) {
+      classCounter = 1;
+    }
+    imageDiv.className = `video-list-card-image video-list-card${classCounter}`;
+    classCounter += 1;
     bodyDiv.className = 'video-list-card-body';
-    imageDiv.append(imgTag);
+    const span2 = document.createElement('div');
+    span2.innerHTML = getSvgText(video.Tags?.split(','));
+    span2.className = 'svg-video-list';
+    imageDiv.append(span2);
     bodyDiv.append(videoTitle);
     bodyDiv.append(videoAuthor);
     bodyDiv.append(videoDate);
