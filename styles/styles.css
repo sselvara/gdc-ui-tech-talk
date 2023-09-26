@@ -328,9 +328,114 @@ main:has(.form-container) {
   background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+main:has(.question-detail-container) {
+  display: block;
+  background:white;
+}
+
 .section.labelwithborder-container.form-container{
   padding: 0;
   border-radius: 5px;
   margin-top: 80px;
   max-width: 700px;
+}
+
+.section.labelwithborder-container.form-container:has(.width-12){
+  max-width: 1600px;
+}
+
+.ago{
+  margin-left: 20px;
+    font-size: 14px;
+    color: gray;
+}
+
+.user-name-logo {
+  max-height: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  min-width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: white;
+  font-size: 24px;
+}
+
+.user-circle-1{
+  background: linear-gradient(to bottom, rgb(255 255 255 / 15%) 0%, rgb(0 0 0 / 15%) 100%), radial-gradient(at top center, rgb(255 255 255 / 40%) 0%, rgb(0 0 0 / 40%) 120%) #989898;
+  background-blend-mode: multiply,multiply;
+}
+
+.user-circle-2{
+  background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+}
+
+.user-circle-3{
+  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+}
+
+.user-circle-4{
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+.user-circle-5{
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+
+.ql-editor {
+  min-height: 350px;
+  font-size: 16px;
+}
+
+.question-detail-container .ql-editor {
+  min-height: 100%;
+}
+
+.question-detail-container .ql-container{
+  font-family: var(--body-font-family);
+}
+
+.ql-omega::after {
+  content: '[ ]';
+  color: #444;
+}
+
+.ql-omega{
+ min-width: 100px;
+}
+
+:fullscreen, ::backdrop {
+  background-color: white;
+}
+
+#container::backdrop {
+  background-color: white;
+}
+
+.fit-to-screen {
+  position: fixed;
+  z-index: 100;
+  background: white;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  height: 100%;
+  display: inline-block;
+  left: 0;
+}
+
+.fit-to-screen label{
+  display: none !important;
+}
+
+.fit-to-screen .ql-editor{
+  min-height: 100%;
+}
+
+.fit-to-screen > div{
+  height: 90%;
 }

@@ -28,6 +28,10 @@ main .form select {
   border-radius: 5px
 }
 
+main .form.width-12 input{
+  max-width: 100%;
+}
+
 main .form textarea {
   min-height: 100px;
 }
@@ -124,6 +128,17 @@ main .form .form-submit-wrapper {
 
   .labelwithborder-container.form-container {
     width: 50%;
+  }
+
+  .labelwithborder-container.form-container:has(.width-12) {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1664px) {
+  .labelwithborder-container.form-container:has(.width-12) {
+   margin-left: 32px;
+   margin-right: 32px;
   }
 }
 

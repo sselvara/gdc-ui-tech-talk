@@ -1,3 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-new */
+import { loadFromScript } from '../../scripts/helper.js';
+
 function createSelect(fd) {
   const select = document.createElement('select');
   select.id = fd.Field;
@@ -25,6 +29,8 @@ function constructPayload(form) {
   [...form.elements].forEach((fe) => {
     if (fe.type === 'checkbox') {
       if (fe.checked) payload[fe.id] = fe.value;
+    } else if (fe.type === 'hidden' && fe.id === 'Details' && document.querySelector('.rich-text-editor > .ql-editor')) {
+      payload[fe.id] = document.querySelector('.rich-text-editor > .ql-editor').innerHTML;
     } else if (fe.id) {
       payload[fe.id] = fe.value;
     }
@@ -73,6 +79,18 @@ function createHeading(fd) {
 }
 
 function createInput(fd) {
+  if (fd.Extra === 'rich-text-editor') {
+    const divMain = document.createElement('div');
+    const div = document.createElement('div');
+    div.id = fd.Field;
+    div.className = 'rich-text-editor';
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.id = fd.Field;
+    divMain.appendChild(div);
+    divMain.appendChild(input);
+    return divMain;
+  }
   const input = document.createElement('input');
   input.type = fd.Type;
   input.id = fd.Field;
@@ -129,6 +147,22 @@ function fill(form) {
     form.querySelector('#owner').value = loc.searchParams.get('owner') || '';
     form.querySelector('#installationId').value = loc.searchParams.get('id') || '';
   }
+
+  if (action === '/discussions') {
+    const loc = new URL(window.location.href);
+    form.querySelector('#Date').value = new Date() || '';
+    form.querySelector('#QuestionId').value = loc.searchParams.get('selectedVideo') || '';
+  }
+
+  if (form.querySelector('#Date')) {
+    form.querySelector('#Date').value = new Date() || '';
+  }
+
+  if (form.querySelector('#Path')) {
+    form.querySelector('#Path').value = `https://main--gdc-ui-tech-talk--sselvara.hlx.live${
+      window.location.pathname}${window.location.search}`;
+    form.querySelector('#Publish').value = 'https://adobe.sharepoint.com/:x:/r/sites/GDCUIFranklinPlayground/Shared%20Documents/ui-tech-talks/website/discussions.xlsx?d=w17a774a9aa0e4355b288d8211e1f0521&csf=1&web=1&e=MnLS7Q';
+  }
 }
 
 async function createForm(formURL) {
@@ -145,6 +179,7 @@ async function createForm(formURL) {
     const style = fd.Style ? ` form-${fd.Style}` : '';
     const fieldId = `form-${fd.Type}-wrapper${style}`;
     fieldWrapper.className = fieldId;
+    fieldWrapper.id = `wrapper-${fd.Field}`;
     fieldWrapper.classList.add('field-wrapper');
     switch (fd.Type) {
       case 'select':
@@ -184,6 +219,7 @@ async function createForm(formURL) {
   form.addEventListener('change', () => applyRules(form, rules));
   applyRules(form, rules);
   fill(form);
+  loadFromScript();
   return form;
 }
 
