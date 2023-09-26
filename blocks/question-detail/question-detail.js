@@ -1,5 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { timeSince } from '../../scripts/helper.js';
+import { timeSince, loadFromScript } from '../../scripts/helper.js';
 
 const findSelectedVideo = (data) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -100,7 +100,7 @@ export default async function decorate(block) {
   block.textContent = '';
   decorateIcons(divWrap);
   block.append(divWrap);
-
+  loadFromScript();
   // document.getElementById('button-comment').addEventListener('click', () => {
   //   document.getElementsByClassName('form block')[0].scrollIntoView({
   //     behavior: 'smooth',
