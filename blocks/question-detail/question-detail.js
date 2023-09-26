@@ -107,11 +107,11 @@ export default async function decorate(block) {
   //   });
   // });
 
-  (function () { // DON'T EDIT BELOW THIS LINE
-    const d = document; const
-      s = d.createElement('script');
-    s.src = 'https://tech-talk-4.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  }());
+  // (function () { // DON'T EDIT BELOW THIS LINE
+  //   const d = document; const
+  //     s = d.createElement('script');
+  //   s.src = 'https://tech-talk-4.disqus.com/embed.js';
+  //   s.setAttribute('data-timestamp', +new Date());
+  //   (d.head || d.body).appendChild(s);
+  // }());
 }
